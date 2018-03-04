@@ -4,15 +4,15 @@ services:
     build: ./conf/web/nginx
     env_file: ./conf/web/nginx/nginx.env
     ports:
-        - "80:80"
+      - "80:80"
     volumes:
-        - ./conf/web/nginx/vhosts:/etc/nginx/conf.d/
-        - ./web:/${WWW}
+      - ./conf/web/nginx/vhosts:/etc/nginx/conf.d/
+      - ./web:/${WWW}
 
   php:
     image: php:7-fpm
     volumes:
-        - ./web:/${WWW}
+      - ./web:/${WWW}
 
   mysql:
     image: percona
@@ -21,3 +21,10 @@ services:
       - 3306:3306
     volumes:
       - /var/lib/mysql
+
+  node:
+    image: node
+    user: node
+    expose:
+      - "8081"
+    tty: true
